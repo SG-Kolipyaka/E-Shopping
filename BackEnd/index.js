@@ -1,6 +1,11 @@
 const express=require("express")
+const cors=require("cors")
+require('dotenv').config()
+const {connection}=require("./db")
 const app=express()
 
+app.use(express.json())
+app.use(cors())
 
 
 
@@ -8,13 +13,13 @@ const app=express()
 
 
 
-
-app.listen("8080",async()=>{
+app.listen(process.env.PORT,async()=>{
 try{
-    console.log("Server is running at 8080 port")
-
-}catch(er){
-
+    await connection
+    console.log("connected to DB")
+    console.log(`Server is running at ${process.env.PORT} port`)
+}catch(error){
+console.log(error)
 }
 })
 
